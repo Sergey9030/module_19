@@ -17,8 +17,8 @@ class Game(models.Model):
     description = models.TextField()
     age_limited = models.BooleanField(default=False)
     buyer = models.ManyToManyField(Buyer, related_name='Buyers')
-    DecimalField = models.DecimalField(decimal_places=2, max_digits=6)
-    BooleanField = models.BooleanField()
+    DecimalField = models.DecimalField(decimal_places=2, max_digits=6, default=0)
+    BooleanField = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
