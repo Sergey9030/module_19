@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <h2>Первая страница</h2>
+    <a href="/third/">Вторая страница</a>
+    <p></p>
+    <a href="/">Главная страница <p></p> <button>На главную</button></a>
+    <p></p>
+    <ul>
+        {% for url, btn in bl %}
+            <li>{{url}}<a href={{url}}> <button>{{btn}}</button></a><p></p></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
