@@ -1,7 +1,9 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import UserRegister
-from .models import Buyer, Game
+from .models import Buyer, Game, News
+from datetime import datetime
 
 # Create your views here.
 def main_index(request):
@@ -14,8 +16,6 @@ def second_index(request):
 
 def third_index(request):
     return render(request, 'fourth_task/third_page.html')
-
-users = ['Serg1', 'Serg2', 'Ser3']
 
 def sign_up_by_html(request):
     if request.method == 'POST':
@@ -64,3 +64,20 @@ def sign_up_by_django(request):
         form = UserRegister()
         info = {'form': form, 'head': 'Django ', 'error': ''}
         return render(request, 'fifth_task/registration_page.html', context=info)
+
+def news_index(request):
+    news = News.objects.all()
+    if len(news) == 0:
+        for i in range(30):
+            t = f'Заголовок{i+1}'
+            c = f'Содержимое{i + 1}'
+            News.objects.create(title=t, content=c)
+        news = News.objects.all()
+    paginator = Paginator(news, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'news': page_obj}
+    return render(request, 'news.html', context)
+
+
+
